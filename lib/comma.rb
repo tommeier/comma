@@ -19,27 +19,12 @@ else
   end
 end
 
-#TODO : Rails 2.3.x Deprecation
-# conditional loading of activesupport
-if defined? Rails and (Rails.version.split('.').map(&:to_i) <=> [2,3,5]) < 0
-  require 'activesupport'
-else
-  require 'active_support/core_ext/class/inheritable_attributes'
+if defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
+  raise "Error - This Comma version only supports Rails 3. Please use an older version for use with earlier rails versions."
 end
 
-if defined?(ActiveRecord)
-  require 'comma/association_proxy'
-
-  #TODO : Rails 2.3.x Deprecation
-  if defined?(ActiveRecord::Relation)
-    #Rails 3.x relations
-    require 'comma/relation'
-  elsif defined?(ActiveRecord::NamedScope::Scope)
-    #Rails 2.x scoping
-    require 'comma/named_scope'
-  end
-
-end
+require 'active_support/core_ext/class/inheritable_attributes'
+require 'comma/relation' if defined?(ActiveRecord::Relation)
 
 require 'comma/extractors'
 require 'comma/generator'
