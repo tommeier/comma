@@ -23,7 +23,7 @@ if defined? Rails and (Rails.version.split('.').map(&:to_i).first < 3)
   raise "Error - This Comma version only supports Rails 3. Please use an older version for use with earlier rails versions."
 end
 
-require 'active_support/core_ext/class/inheritable_attributes'
+require 'active_support/core_ext/class/attribute'
 require 'comma/relation' if defined?(ActiveRecord::Relation)
 
 require 'comma/extractors'
